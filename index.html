@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="NoTouch.js">
+	<meta name="author" content="Korhan Akcura" >
+	<title>NoTouch.js Test Page</title>
+
+	<link rel="icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/master.css">
+
+</head>
+<body id="gameBody">
+
+	<nav id="header" class="navbar navbar-inverse">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="index.html" class="navbar-brand"><img class="img-fluid" style="display:inline;" src="images/logo.png"/> NoTouch.js Test Page</a>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container">
+<main>
+<p>
+
+<div id="tutorial1_container" style="width:500px;">
+	<span id="tutorial1_text" class="lead"><b>Step1: Click on first button.</b><br/>Please move your index finger as shown in the video below for the pointer to lock on it. Once it is locked (moving consistently with your finger) move your finger over the button and move your finger at the same location to click.</span>
+	<img id="tutorial1_instruction" style="width:500px;border:1px solid black;" src="images/tutorial/step1.gif">
+</div>
+<div id="tutorial2_container" style="width:500px; display:none;">
+	<span id="tutorial2_text" class="lead"><b>Step2: Scroll down and click on second button.</b><br/>Please move your hand in upwards with a fast speed to scroll down. Once scrolled, the second button will be visible. Please click on it as the same way it was done for the first button.</span>
+	<img id="tutorial2_instruction" style="width:500px;border:1px solid black;" src="images/tutorial/step2.gif">
+</div>
+<div id="tutorial3_container" style="width:500px; display:none;">
+	<span id="tutorial3_text" class="lead"><b>Step3: Scroll up and click on third button.</b><br/>Please move your hand in downwards with a fast speed to scroll up. Once scrolled, the third button will be visible. Please click on it as the same way it was done for the previous buttons.</span>
+	<img id="tutorial3_instruction" style="width:500px;border:1px solid black;" src="images/tutorial/step3.gif">
+</div>
+<div id="tutorial4_container" style="width:500px; display:none;">
+	<span id="tutorial4_text" class="lead"><b>Step3: Scroll right and click on fouth button.</b><br/>Please move your hand in leftwards with a fast speed to left. Once scrolled, the fourth button will be visible. Please click on it as the same way it was done for the previous buttons.</span>
+	<img id="tutorial4_instruction" style="width:500px;border:1px solid black;" src="images/tutorial/step4.gif">
+</div>
+<div id="tutorial_complate_container" style="display:none;">
+	<span id="tutorial_complate_icon" class="text-success lead glyphicon glyphicon-ok"></span>
+	<span id="tutorial_complate_text" class="text-success lead"><b>Tasks Complate! Thanks for your time!</span><br/><br/>
+	<span id="tutorial_complate_text" class="lead"><b>Please complete the short post-questionnaire at the below link:</span><br/>
+	<a class="lead" href="https://docs.google.com/forms/d/14yrNAlFkiHMXNyYJ34Bdr344sPr_47KPfJXW7HYDiBk">https://docs.google.com/forms/d/14yrNAlFkiHMXNyYJ34Bdr344sPr_47KPfJXW7HYDiBk</a>
+</div>
+<button id="firstbutton" style="position:absolute;" class="no_touch_click_element lead btn-primary" onclick="firstbutton();">Click<br/>First Button</button>
+<button id="forthbutton" style="position:absolute; display:none;" class="no_touch_click_element lead btn-primary" onclick="fourthbutton();">Click<br/>Fourth Button</button>
+<button id="thirdbutton" style="position:absolute; display:none;" class="btn-primary" onclick="thirdbutton();">Click<br/>Third Button</button>
+<button id="secondbutton" style="position:absolute; display:none;" class="no_touch_click_element lead btn-primary" onclick="secondbutton();">Click<br/>Second Button</button>
+
+</p>
+</main>
+	</div>
+
+	<!-- Load JS at the end -->
+	<script type="text/javascript" src="js/libs/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/no_touch.js"></script>
+	<script>
+	var firstButton = document.getElementById('firstbutton');
+	firstButton.style.right = Math.abs(window.innerWidth/6) + "px";
+	firstButton.style.top = Math.abs(window.innerHeight/6) + "px";
+	var secondButton = document.getElementById('secondbutton');
+	secondButton.style.right = Math.abs(window.innerWidth/6) + "px";
+	secondButton.style.top = Math.abs(window.innerHeight + (window.innerHeight/2)) + "px";
+	var thirdButton = document.getElementById('thirdbutton');
+	thirdButton.style.right = Math.abs(window.innerWidth/6) + "px";
+	thirdButton.style.top = Math.abs(window.innerHeight/6) + "px";
+	var forthButton = document.getElementById('forthbutton');
+	forthButton.style.left = Math.abs(window.innerWidth + (window.innerWidth/2)) + "px";
+
+	function firstbutton() {
+		firstButton.innerHTML = "<span class='glyphicon glyphicon glyphicon-check'></span><br/>First Button<br/>Clicked!"; 
+		firstButton.className = "no_touch_click_element lead btn-success";
+		secondButton.style.display ="block";
+		document.getElementById('tutorial1_container').style.display="none";
+		document.getElementById('tutorial2_container').style.display="block";
+
+	}
+
+	function secondbutton() {
+		secondButton.innerHTML = "<span class='glyphicon glyphicon glyphicon-check'></span><br/>Second Button<br/>Clicked!"; 
+		secondButton.className = "no_touch_click_element lead btn-success";
+		firstButton.style.display ="none";
+		thirdButton.style.display ="block";
+		document.getElementById('tutorial2_container').style.display="none";
+		document.getElementById('tutorial3_container').style.cssText = "position:absolute; display:block; width:500px; top:" + window.innerHeight + "px";
+	}
+
+	function thirdbutton() {
+		thirdButton.innerHTML = "<span class='glyphicon glyphicon glyphicon-check'></span><br/>Third Button<br/>Clicked!"; 
+		thirdButton.className = "btn-success";
+		secondButton.style.display ="none";
+		forthButton.style.display ="block";
+		var header = document.getElementById('header');
+		header.style.width = Math.abs(window.innerWidth + (window.innerWidth/2)) + 200 + "px";
+		document.getElementById('tutorial3_container').style.display="none";
+		document.getElementById('tutorial4_container').style.display="block";
+	}
+
+	function fourthbutton() {
+		forthButton.innerHTML = "<span class='glyphicon glyphicon glyphicon-check'></span><br/>Fourth Button<br/>Clicked!"; 
+		forthButton.className = "no_touch_click_element lead btn-success"
+		thirdButton.style.display ="none";
+		forthButton.style.display ="none";
+		header.style.width = "";
+		document.getElementById('tutorial4_container').style.display="none";
+		document.getElementById('tutorial_complate_container').style.display="block"
+	}
+	</script>
+</body>
+</html>
