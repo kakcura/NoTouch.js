@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="AvatarBot">
+		<meta name="author" content="Korhan Akcura" >
+		<title>AvatarBot</title>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/master.css" rel="stylesheet">
+
+</head>
+<body>
+
+		<nav class="navbar navbar-inverse" style="margin-bottom: 0px;">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+						<a href="index.html" class="navbar-brand">AvatarBot</a>
+				</div>
+		</nav>
+
+		<!-- Page Content -->
+		<div class="container">
+				<table style="width:100%;">
+						<tbody >
+								<tr>
+										<td align="left" style="width:640px;">
+												<div class="row" style="height:485px; width: inherit; margin-right: 0px; margin-left: 0px;">
+													<div class="col-xl-12">
+														<button type="button" onclick="forward();" class="btn btn-success"  style="height:100px; width:100%;">Forward</button>
+													</div>
+													<div class="col-xl-12" onclick="left();" style="float:left;">
+														<button type="button" class="btn btn-info" style="height:280px; width:125px;">Left</button>
+													</div>
+													<div class="col-xl-12" onclick="stop();" style="float: left; padding-left: 75px;padding-top: 40px;padding-bottom: 40px;" >
+														<button type="button" class="btn btn-danger" style="height:200px; width:200px;">Stop</button>
+													</div>
+													<div class="col-xl-12" onclick="right();" style="float:right;">
+														<button type="button" class="btn btn-primary" style="height:280px; width:125px;">Right</button>
+													</div>
+													<div class="col-xl-12">
+														<button type="button" onclick="backward();" class="btn btn-warning" style="height:100px; width:100%;">Backward</button>
+													</div>
+											</div>
+									</td>
+									<td align="center" style="width:640px; padding-right:10px; padding-left:10px;">
+										<img id="video_stream" style="width:640px;" src="">
+								</td>
+								<td align="right" style="width:100%;">
+										<canvas id="canvas" style="display:none; position:relative; z-index:-2;"></canvas>
+										<div id="disp" style="display:none;"><canvas id="comp" style="position:relative; z-index:-1; background-color: black;"></canvas></div>
+										<video id="video" autoplay class="flip-horizontal" style="position:relative; z-index:-3; object-fit: fill; width:100%; height:480px;"></video>
+								</td>
+						</tr>
+				</tbody>
+		</table>
+</div>
+
+<div id="pointer" class="pointer"></div>
+
+<div class="navbar navbar-inverse navbar-fixed-bottom">
+		<div class="container">
+				<p class="navbar-text pull-left">© 2018 - AvatarBot</p>
+		</div>
+</div>
+
+<!-- Load JS at the end -->
+<script type="text/javascript" src="js/libs/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+		var request_lock = false;
+		function forward(){
+				if(!request_lock){
+						request_lock = true;
+						$.get( "/api/move_forward", function( ) {
+							  request_lock = false;
+					  });
+				}
+		}
+
+		function left(){
+				if(!request_lock){
+						request_lock = true;
+						$.get( "/api/turn_left", function( ) {
+							  request_lock = false;
+					  });
+				}
+		}
+
+		function stop(){
+				if(!request_lock){
+						request_lock = true;
+						$.get( "/api/stop", function( ) {
+							  request_lock = false;
+					  });
+				}
+		}
+
+		function right(){
+				if(!request_lock){
+						request_lock = true;
+						$.get( "/api/turn_right", function( ) {
+							  request_lock = false;
+					  });
+				}
+		}
+
+		function backward(){
+				if(!request_lock){
+						request_lock = true;
+						$.get( "/api/move_backward", function( ) {
+							  request_lock = false;
+					  });
+				}
+		}
+
+		var stream_src = '/api/stream';
+		var img = document.getElementById('video_stream');
+		img.src = stream_src + "?" + new Date().getTime();
+		img.onload = function() {
+			//img.src = stream_src + "?" + new Date().getTime();
+		};
+		</script>
+		<script type="text/javascript" src="js/no_touch.js"></script>
+</body>
+</html>

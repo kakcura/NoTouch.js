@@ -3,10 +3,6 @@
 * A JavaScripy library for motion based control of a webpage.
 * Created by Korhan Akcura
 */
-// The implementation contains some modified code from;
-// https://github.com/willy-vvu/reveal.js - MIT License
-// https://github.com/hdmchl/gest.js - MIT License
-// for scroll direction detection.
 
 var debug = false;
 var camera_control = true;
@@ -236,8 +232,6 @@ function fingerDetector() {
 }
 
 function initilizeTracking() {
-	var no_touch_container = document.createElement("div");
-	no_touch_container.classList.add("no_touch_container");
 	video_camera.id = "no_touch_video_camera";
 	video_camera.style.cssText = "visibility: hidden;";
 	video_camera.autoplay = true;
@@ -245,26 +239,21 @@ function initilizeTracking() {
 	video_cavans.style.cssText = "visibility: hidden;";
 	pointer.id = "no_touch_pointer";
 	pointer.style.cssText = "top: 0px;left: 0px;";
-	no_touch_container.appendChild(video_camera);
-	no_touch_container.appendChild(video_cavans);
+	document.body.appendChild(video_camera);
+	document.body.appendChild(video_cavans);
 	document.body.appendChild(pointer);
 	if(debug){
-		video_cavans.style.cssText = "position:absolute;bottom: 0;left: 0; min-width:500px;";
-		//video_cavans.style.cssText = "position:absolute;bottom: 0;right: 0; width:500px;";
+		video_cavans.style.cssText = "position:absolute;bottom: 0;left: 0; width:500px;";
 		motion_cavans.id = "no_touch_motion_canvas";
-		motion_cavans.style.cssText = "position:absolute;bottom: 0;left: 0; min-width:500px;";
-		//motion_cavans.style.cssText = "position:absolute;bottom: 0;left: 0; width:500px; background-color:black;";
-		no_touch_container.appendChild(motion_cavans);
+		motion_cavans.style.cssText = "position:absolute;bottom: 0;left: 0; width:500px;";
+		document.body.appendChild(motion_cavans);
 	}
-	document.body.appendChild(no_touch_container);
 	// Add style for NoTouch.js
 	var pointer_diameter = 2 * pointer_radius;
 	var sheet = document.createElement('style');
 	sheet.innerHTML = "#no_touch_pointer {z-index:999; position:absolute; width:"+pointer_diameter+"px; height:"+pointer_diameter+"px; box-sizing:content-box;" +
 			"-webkit-border-radius:50%; -moz-border-radius:50% ;border-radius:50%; background:red; opacity:0.6; transition:all .1s; }" +
 		"@keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }}" +
-		".no_touch_container {-moz-transform: scale(-1, 1); -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); -ms-transform: scale(-1, 1); transform: scale(-1, 1);" +
-			"position:absolute; bottom:0; left:0; width:500px;}" +
 		".no_touch_click_element {min-width: 200px; min-height: 200px;}";
 	document.body.appendChild(sheet);
 }
@@ -369,22 +358,18 @@ function detectDirection(){
 			var dirx=Math.abs(dy)<Math.abs(dx);
 			if(dy>movethresh&&!dirx){
 				console.log('down');
-				window.scrollBy(0,-window.innerHeight);
-				pointer.style.top = pointer.style.top.replace('px','') - window.innerHeight + "px";
+				window.scrollBy(0,window.innerHeight);
 			}
 			else if(dy<-movethresh&&!dirx){
 				console.log('up');
-				window.scrollBy(0,+window.innerHeight);
-				pointer.style.top = pointer.style.top.replace('px','') + window.innerHeight + "px";
+				window.scrollBy(0,-window.innerHeight);
 			} else if(dx<-movethresh){
 				console.log('right');
-				window.scrollBy(-window.innerWidth,0);
-				pointer.style.left = pointer.style.left.replace('px','') - window.innerWidth + "px";
+				window.scrollBy(window.innerWidth,0);
 			}
 			else if(dx>movethresh){
 				console.log('left');
-				window.scrollBy(+window.innerWidth,0);
-				pointer.style.left = pointer.style.left.replace('px','') + window.innerWidth + "px";
+				window.scrollBy(-window.innerWidth,0);
 			}
 			state=2;
 			break;
