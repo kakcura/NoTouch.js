@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Awesome Swings">
+	<meta name="author" content="Korhan Akcura" >
+	<title>AwesomeSwings</title>
+
+	<link rel="icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/master.css">
+
+</head>
+<body id="gameBody">
+
+	<nav id="header" class="navbar navbar-inverse">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="index.html" class="navbar-brand"><img class="img-fluid" style="display:inline;" src="images/baseball.png"/>   AwesomeSwings</a>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container" id="gameContainer">
+		<!-- Baseball Pro game in IFrame from https://gamedistribution.com/games/baseball/baseball-pro-game.html -->
+		<iframe id="gameFrame" src="https://html5.gamedistribution.com/ab8b147412da4c19a1d0ae6ab740682a/" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+
+		<div id="disp" style="display: none;"><canvas id="comp"></canvas></div>
+		<video id="video" autoplay width="300" style="display:none"></video>
+		<canvas id="canvas" style="width:300px;display:none;"></canvas>
+	</div>
+
+
+	<div id="footer" class="navbar navbar-inverse navbar-fixed-bottom">
+		<div class="container">
+			<p class="navbar-text pull-left">© 2018 - AwesomeSwings</p>
+		</div>
+	</div>
+
+	<!-- Load JS at the end -->
+	<script type="text/javascript" src="js/libs/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/no_touch.js"></script>
+	<script>
+		function sizeGameContainer() {
+			$("#gameContainer").height($('#gameBody').height() - ($("#footer").height() + $("#header").height()) - 40);
+		}
+		sizeGameContainer();
+		window.onresize = function() {
+			sizeGameContainer();
+		}
+	</script>
+</body>
+</html>
